@@ -22,3 +22,6 @@ while running :
         if event.type == pygame.QUIT:
             running = False
 
+    # changing colour of background
+    screen.fill( (177, 156, 217))
+    pygame.display.update()
