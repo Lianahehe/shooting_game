@@ -1,4 +1,5 @@
 import pygame
+import random
 
 # initialises the game
 pygame.init()
@@ -17,12 +18,23 @@ pygame.display.set_caption("Space Shooter")
 playerImg = pygame.image.load("player.png")
 # sets where the image wants to be set (position)
 playerX = 370
-playerY = 480
+playerY = 500
 playerX_change = 0
+
+# Enemy details
+enemyImg = pygame.image.load("space_alien.png")
+# sets where the image wants to be set (position)
+enemyX = random.randint(0,800)
+enemyY = random.randint(50,150)
+enemyX_change = 0
 
 def player(x,y):
     # blit means to draw, parameters is ( image, coordinates)
     screen.blit(playerImg, (x,y) )
+
+def enemy(x,y):
+    # blit means to draw, parameters is ( image, coordinates)
+    screen.blit(enemyImg, (x,y) )
 
 
 # closes the screen when we quit, if dont have this, then the screen is open forever
@@ -53,4 +65,5 @@ while running :
         playerX = 736
 
     player(playerX, playerY)
+    enemy(enemyX, enemyY)
     pygame.display.update()
