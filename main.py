@@ -1,5 +1,6 @@
 import pygame
 import random
+import math
 
 # initialises the game
 pygame.init()
@@ -27,7 +28,7 @@ playerX_change = 0
 # Enemy details
 enemyImg = pygame.image.load("monster.png")
 # sets where the image wants to be set (position)
-enemyX = random.randint(0,800)
+enemyX = random.randint(0,736)
 enemyY = random.randint(50,150)
 enemyX_change = 3
 enemyY_change = 40
@@ -38,6 +39,9 @@ bulletX = 0
 bulletY = 480
 bulletY_change = 10
 bullet_state = "ready"
+
+#initialising score
+score = 0
 
 def player(x,y):
     # blit means to draw, parameters is ( image, coordinates)
@@ -53,6 +57,13 @@ def bullet_fire(x,y):
     bullet_state = "fire"
     screen.blit(bulletImg, (x + 16,y + 10))
 
+# collision of bullet and enemy
+# equation of distance between 2 points and the midpoint
+def is_collision(enemyX, enemyY, bulletX, bulletY) : 
+    distance = math.sqrt(math.pow(enemyX-bulletX, 2) + math.pow(enemyY - bulletY, 2) )
+    if distance < 27 :
+        return True
+    return False
 
 # closes the screen when we quit, if dont have this, then the screen is open forever
 while running :
@@ -69,9 +80,9 @@ while running :
         # checks if key pressed is right or left (only works on arrow keys)
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RIGHT:
-                playerX_change = 3
+                playerX_change = 4
             if event.key == pygame.K_LEFT:
-                playerX_change = -3
+                playerX_change = -4
 
             # button for the bullet 
             if event.key == pygame.K_SPACE:
@@ -109,6 +120,19 @@ while running :
     if bulletY <= 0:
         bulletY = 480
         bullet_state = "ready"
+
+    # collision (what happens when bullet collides with enemy)
+    collision = is_collision(enemyX,enemyY,bulletX,bulletY)
+    if collision :
+        bulletY = 480
+        bullet_state = "ready"
+        score += 1
+        print(score)
+        # enemy respawn
+        enemyX = random.randint(0,736)
+        enemyY = random.randint(50,150)
+        
+         
         
         
 
