@@ -58,6 +58,8 @@ textY = 10
 # Game over text details
 game_over_font = pygame.font.Font('Minecraft.ttf', 64)
 
+play_again_font = pygame.font.Font('Minecraft.ttf', 30)
+
 def player(x,y):
     # blit means to draw, parameters is ( image, coordinates)
     screen.blit(playerImg, (x,y) )
@@ -85,9 +87,12 @@ def show_score(x,y):
     screen.blit(score, (textX, textY) )
 
 def game_over_text():
-    over_text = font.render("GAME OVER", True, (255,255,255) )
-    screen.blit(over_text, (260,250) ) 
+    over_text = game_over_font.render("GAME OVER", True, (255,255,255) )
+    again_txt = play_again_font.render("Press enter to play again", True, (255,255,255) )
+    screen.blit(over_text, (260,250) )
+    screen.blit(again_txt, (260,300) ) 
 
+# play_again = True
 running = True
 # closes the screen when we quit, if dont have this, then the screen is open forever
 while running :
@@ -96,7 +101,7 @@ while running :
 
     # background image
     screen.blit(background, (0,0))
-
+    #while play_again: 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -117,6 +122,10 @@ while running :
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT:
                 playerX_change = 0
+
+        #if event.type == pygame.K_RETURN:
+            
+        
     
     playerX += playerX_change
     #take into consideration pizel size of spaceship(64x64)
@@ -134,7 +143,8 @@ while running :
             for j in range(num_of_enemies):
                 enemyY[j] = 2000
             game_over_text()
-            break
+            #break
+            #play_again = False
         
         enemyX[i] += enemyX_change[i]
         if enemyX[i] <= 0:
