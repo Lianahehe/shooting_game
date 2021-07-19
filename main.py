@@ -38,7 +38,7 @@ for i in range(num_of_enemies):
     # sets where the image wants to be set (position)
     enemyX.append(random.randint(0,735))
     enemyY.append(random.randint(50,150))
-    enemyX_change.append(2.5 )
+    enemyX_change.append(2)
     enemyY_change.append(40)
 
 # Bullet details
@@ -51,7 +51,7 @@ bullet_state = "ready"
 # Score
 score_value = 0
 # parameters is (font,size)
-font = pygame.font.Font('freesansbold.ttf', 32)
+font = pygame.font.Font('Minecraft.ttf', 32)
 textX = 10
 textY = 10
 
@@ -123,10 +123,10 @@ while running :
     for i in range(num_of_enemies):
         enemyX[i] += enemyX_change[i]
         if enemyX[i] <= 0:
-            enemyX_change[i] = +3
+            enemyX_change[i] = +2
             enemyY[i] += enemyY_change[i]
         elif enemyX[i] >= 736:
-            enemyX_change[i] = -3
+            enemyX_change[i] = -2
             enemyY[i] += enemyY_change[i]
 
         # collision (what happens when bullet collides with enemy)
