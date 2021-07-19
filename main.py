@@ -51,13 +51,12 @@ bullet_state = "ready"
 # Score
 score_value = 0
 # parameters is (font,size)
-font = pygame.font.Font('Minecraft.ttf', 32)
+font = pygame.font.Font('Minecraft.ttf', 45)
 textX = 10
 textY = 10
 
-def show_score(x,y):
-    score = font.render("Score : " + str(score_value), True, (255,255,255) )
-    screen.blit(score, (textX, textY) )
+# Game over text details
+game_over_font = pygame.font.Font('Minecraft.ttf', 64)
 
 def player(x,y):
     # blit means to draw, parameters is ( image, coordinates)
@@ -80,6 +79,14 @@ def is_collision(enemyX, enemyY, bulletX, bulletY) :
     if distance < 27 :
         return True
     return False
+
+def show_score(x,y):
+    score = font.render("Score : " + str(score_value), True, (255,255,255) )
+    screen.blit(score, (textX, textY) )
+
+def game_over_text():
+    over_text = font.render("GAME OVER", True, (255,255,255) )
+    screen.blit(over_text, (260,250) ) 
 
 running = True
 # closes the screen when we quit, if dont have this, then the screen is open forever
@@ -121,6 +128,14 @@ while running :
     # enemy movement
     # hits boundary it will move downwards
     for i in range(num_of_enemies):
+        
+        # Game over text
+        if enemyY[i] > 440 :
+            for j in range(num_of_enemies):
+                enemyY[j] = 2000
+            game_over_text()
+            break
+        
         enemyX[i] += enemyX_change[i]
         if enemyX[i] <= 0:
             enemyX_change[i] = +2
