@@ -38,7 +38,7 @@ for i in range(num_of_enemies):
     # sets where the image wants to be set (position)
     enemyX.append(random.randint(0,735))
     enemyY.append(random.randint(50,150))
-    enemyX_change.append(3)
+    enemyX_change.append(2.5 )
     enemyY_change.append(40)
 
 # Bullet details
@@ -48,8 +48,16 @@ bulletY = 480
 bulletY_change = 10
 bullet_state = "ready"
 
-#initialising score
-score = 0
+# Score
+score_value = 0
+# parameters is (font,size)
+font = pygame.font.Font('freesansbold.ttf', 32)
+textX = 10
+textY = 10
+
+def show_score(x,y):
+    score = font.render("Score : " + str(score_value), True, (255,255,255) )
+    screen.blit(score, (textX, textY) )
 
 def player(x,y):
     # blit means to draw, parameters is ( image, coordinates)
@@ -126,8 +134,8 @@ while running :
         if collision :
             bulletY = 480
             bullet_state = "ready"
-            score += 1
-            print(score)
+            score_value += 1
+
             # enemy respawn
             enemyX[i] = random.randint(0,735 )
             enemyY[i] = random.randint(50,150)
@@ -144,4 +152,5 @@ while running :
 
 
     player(playerX, playerY)
+    show_score(textX,textY)
     pygame.display.update()
